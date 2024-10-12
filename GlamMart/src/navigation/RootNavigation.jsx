@@ -1,15 +1,14 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ROUTES} from '../constants';
-import {HomeScreen} from '../screens';
+import {HomeScreen, OnBoardingScreen} from '../screens';
 
 const Stack = createStackNavigator();
 
 const RootNavigation = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="HomeScreen"
-      screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name={ROUTES.ONBOARDING} component={OnBoardingScreen} />
       <Stack.Screen name={ROUTES.HOMESCREEN} component={HomeScreen} />
     </Stack.Navigator>
   );
