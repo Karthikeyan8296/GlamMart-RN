@@ -6,14 +6,18 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      //name is used for backend//
       name: 'title',
       title: 'Title',
       type: 'string',
     }),
     defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
+      name: 'mainImage',
+      title: 'Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
     }),
   ],
 })
