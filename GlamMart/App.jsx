@@ -1,13 +1,13 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import './gesture-handler';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {RootNavigation} from './src/navigation';
 
 function App() {
   return (
-    <SafeAreaView className="flex-1">
-      <View className="flex-1 items-center justify-center">
-        <Text className="text-black text-xl">Hello World</Text>
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <RootNavigation />
+    </NavigationContainer>
   );
 }
 
