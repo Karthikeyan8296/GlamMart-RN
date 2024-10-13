@@ -16,13 +16,16 @@ import {fetchFeeds} from '../../sanity';
 import {useDispatch, useSelector} from 'react-redux';
 import {SET_FEEDS} from '../../context/actions/feedsAction';
 import {FeedsComponent} from '../components';
-import {color} from 'react-native-elements/dist/helpers';
 
 const HomeScreen = () => {
   const [searchTerm, setsearchTerm] = useState('');
   const handleSearchTerm = text => {
     setsearchTerm(text);
+    //this can be used to filtering out by seraching//
+    setFiltered(feeds?.feeds.filter(item => item.title.includes(text)));
   };
+  const [Filtered, setFiltered] = useState(null);
+
   const [isloading, setisloading] = useState(false);
 
   //spl hook for dispatching from the redux store//
@@ -37,7 +40,7 @@ const HomeScreen = () => {
         const res = await fetchFeeds();
         dispatch(SET_FEEDS(res));
         setisloading(false);
-        console.log('Feeds from store: ', res);
+        // console.log('Feeds from store: ', res);
       } catch (error) {
         console.log(error);
         // setisloading(false);
@@ -79,7 +82,9 @@ const HomeScreen = () => {
             <ActivityIndicator size="large" color="red" />
           </View>
         ) : (
-          <FeedsComponent value={feeds?.feeds} />
+          <FeedsComponent
+            value={Filtered || Filtered?.length > 0 ? Filtered : feeds?.feeds}
+          />
         )}
       </ScrollView>
     </SafeAreaView>
