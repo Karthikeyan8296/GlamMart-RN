@@ -15,6 +15,7 @@ import {Profile} from '../assets';
 import {fetchFeeds} from '../../sanity';
 import {useDispatch, useSelector} from 'react-redux';
 import {SET_FEEDS} from '../../context/actions/feedsAction';
+import {FeedsComponent} from '../components';
 
 const HomeScreen = () => {
   const [searchTerm, setsearchTerm] = useState('');
@@ -76,9 +77,7 @@ const HomeScreen = () => {
             <ActivityIndicator size="large" color="red" />
           </View>
         ) : (
-          <View>
-            <Text className="text-black">Feeds</Text>
-          </View>
+          <FeedsComponent value={feeds?.feeds} />
         )}
       </ScrollView>
     </SafeAreaView>
