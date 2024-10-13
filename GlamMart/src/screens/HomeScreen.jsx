@@ -16,6 +16,7 @@ import {fetchFeeds} from '../../sanity';
 import {useDispatch, useSelector} from 'react-redux';
 import {SET_FEEDS} from '../../context/actions/feedsAction';
 import {FeedsComponent} from '../components';
+import {color} from 'react-native-elements/dist/helpers';
 
 const HomeScreen = () => {
   const [searchTerm, setsearchTerm] = useState('');
@@ -62,6 +63,7 @@ const HomeScreen = () => {
             value={searchTerm}
             onChangeText={handleSearchTerm}
             placeholder="Search..."
+            placeholderTextColor={'gray'}
             className="text-base font-normal text-[#555] flex-1 py-1"
           />
         </View>
@@ -71,7 +73,7 @@ const HomeScreen = () => {
       </View>
 
       {/* Scrollable container */}
-      <ScrollView className="flex-1 w-full h-full bg-white">
+      <ScrollView className="flex-1 w-full h-ful">
         {isloading ? (
           <View className=" flex-1 h-96 items-center justify-center">
             <ActivityIndicator size="large" color="red" />
