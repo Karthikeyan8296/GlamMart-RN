@@ -1,3 +1,4 @@
+//Backend fetched query//
 export const fetchQuery = `*[_type == 'products'] | order(_createdAt desc){
     _id,
     title,

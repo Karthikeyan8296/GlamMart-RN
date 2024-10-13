@@ -1,6 +1,7 @@
 import {createClient} from '@sanity/client';
 import {fetchQuery} from './utils/supports';
 
+//fetching the data from sanity//
 const client = createClient({
   projectId: 'ueycdpee',
   dataset: 'production',

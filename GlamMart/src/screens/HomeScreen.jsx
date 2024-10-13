@@ -13,6 +13,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Profile} from '../assets';
 import {fetchFeeds} from '../../sanity';
+import {useDispatch, useSelector} from 'react-redux';
+import {SET_FEEDS} from '../../context/actions/feedsAction';
 
 const HomeScreen = () => {
   const [searchTerm, setsearchTerm] = useState('');
@@ -21,19 +23,25 @@ const HomeScreen = () => {
   };
   const [isloading, setisloading] = useState(false);
 
+  //spl hook for dispatching from the redux store//
+  const dispatch = useDispatch();
+  //to access the state from redus store
+  const feeds = useSelector(state => state.feeds);
+
   useEffect(() => {
-    setisloading(true);
-    try {
-      fetchFeeds().then(res => {
-        console.log(res);
-        setInterval(() => {
-          setisloading(false);
-        }, 1000);
-      });
-    } catch (error) {
-      console.log(error);
-      // setisloading(false);
-    }
+    const getFeeds = async () => {
+      setisloading(true);
+      try {
+        const res = await fetchFeeds();
+        dispatch(SET_FEEDS(res));
+        setisloading(false);
+        console.log('Feeds from store: ', res);
+      } catch (error) {
+        console.log(error);
+        // setisloading(false);
+      }
+    };
+    getFeeds();
   }, []);
 
   return (
@@ -69,7 +77,7 @@ const HomeScreen = () => {
           </View>
         ) : (
           <View>
-            <Text>Feeds</Text>
+            <Text className="text-black">Feeds</Text>
           </View>
         )}
       </ScrollView>
