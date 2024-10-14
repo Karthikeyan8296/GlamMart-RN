@@ -10,6 +10,7 @@ const OnBoardingScreen = () => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
 
+  //Async storage for onboarding is working fine with this logic//
   useEffect(() => {
     const checkOnboardingstatus = async () => {
       const value = await AsyncStorage.getItem('@onboarding_complete');

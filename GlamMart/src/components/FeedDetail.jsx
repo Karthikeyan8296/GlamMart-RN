@@ -1,6 +1,8 @@
 import {View, Text, Image, Dimensions, TouchableOpacity} from 'react-native';
 import {React, useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useNavigation} from '@react-navigation/native';
+import {ROUTES} from '../constants';
 
 const FeedDetailComponent = ({data}) => {
   //to get the complete screen width for anytype of device//
@@ -13,8 +15,20 @@ const FeedDetailComponent = ({data}) => {
     setisFavorite(!isFavorite);
   };
 
+  const navigation = useNavigation();
+  const handleClick = () => {
+    //we are sending the id to the next screen//
+    navigation.navigate(ROUTES.PRODUCTSCREEN, {
+      _id: data?._id,
+      title: data?.title,
+      img: data?.mainImage?.asset?.url,
+    });
+  };
+
   return (
-    <View
+    <TouchableOpacity
+      activeOpacity={0.6}
+      onPress={handleClick}
       className="p-4 rounded-xl bg-white flex items-center justify-center m-2"
       style={{width: cardWidth}}>
       {/* Favorites toggle */}
@@ -48,7 +62,7 @@ const FeedDetailComponent = ({data}) => {
           ${data?.price}/-
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

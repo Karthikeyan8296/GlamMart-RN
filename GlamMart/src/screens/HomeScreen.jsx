@@ -30,7 +30,7 @@ const HomeScreen = () => {
 
   //spl hook for dispatching from the redux store//
   const dispatch = useDispatch();
-  //to access the state from redus store
+  //to access the state or data from redus store
   const feeds = useSelector(state => state.feeds);
 
   useEffect(() => {
