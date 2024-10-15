@@ -12,7 +12,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/Entypo';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
-import {ROUTES} from '../constants';
 import {addtocart} from '../../context/actions/cartActions';
 
 const ProductScreen = ({route}) => {
