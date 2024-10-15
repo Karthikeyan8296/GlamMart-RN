@@ -8,17 +8,19 @@ import {
   Image,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/Entypo';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import {ROUTES} from '../constants';
+import {addtocart} from '../../context/actions/cartActions';
 
 const ProductScreen = ({route}) => {
   //by this we are getting the values of ID as params//
   const {_id, title, img} = route.params;
   // console.log(img);
 
+  //we used this to get the data from feeds//
   const feeds = useSelector(state => state.feeds);
   const [data, setdata] = useState(null);
   const [isLoading, setisLoading] = useState(false);
@@ -31,7 +33,9 @@ const ProductScreen = ({route}) => {
         setisLoading(false);
       }, 1000);
     }
-  }, []);
+  }, [feeds, cartItems]);
+
+  const cartItems = useSelector(state => state.cartItems);
 
   const [isFavorite, setisFavorite] = useState(false);
   const toggleFavorite = () => {
@@ -49,6 +53,12 @@ const ProductScreen = ({route}) => {
 
   //screen height//
   const screenHeight = Math.round(Dimensions.get('window').height);
+
+  const dispatch = useDispatch();
+  const handlePressCart = () => {
+    dispatch(addtocart({data: data, Qty: Qty}));
+    setTimeout(() => {}, 100);
+  };
 
   return (
     <View className="flex-1 items-start justify-start bg-[#ebeaef] space-y-4">
@@ -141,15 +151,25 @@ const ProductScreen = ({route}) => {
                   <Text className="text-xl font-bold text-gray-900">+</Text>
                 </TouchableOpacity>
               </View>
-            </View>
 
-            <TouchableOpacity
-              activeOpacity={0.8}
-              className="w-full h-14 rounded-xl bg-black items-center justify-center">
-              <Text className="text-white text-xl font-semibold">
-                Add to cart
-              </Text>
-            </TouchableOpacity>
+              {cartItems?.cart?.filter(item => item?.data?._id === data?._id)
+                ?.length > 0 ? (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  className=" h-14 rounded-xl bg-black items-center justify-center">
+                  <Text className="text-white text-xl font-semibold">
+                    Added
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={handlePressCart}
+                  activeOpacity={0.8}
+                  className="px-4 py-2 rounded-xl bg-black items-center justify-center">
+                  <Text className="text-white text-lg font-semibold">Cart</Text>
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
         </>
       )}
